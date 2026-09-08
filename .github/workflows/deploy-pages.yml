@@ -30,7 +30,11 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - run: touch dist/client/.nojekyll
+      - name: Prepare GitHub Pages files
+        run: |
+          mv dist/client/istanbul/_next dist/client/_next
+          rmdir dist/client/istanbul
+          touch dist/client/.nojekyll
       - uses: actions/configure-pages@v5
         with:
           enablement: true
